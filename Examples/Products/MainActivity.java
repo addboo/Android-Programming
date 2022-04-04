@@ -26,14 +26,15 @@ import okhttp3.Response;
 
 
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity
+{
     TextView txtInfo;
     EditText txtPID, txtPName, txtPrice;
     Button btnCreate, btnRead, btnUpdate, btnDelete;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -47,18 +48,19 @@ public class MainActivity extends AppCompatActivity {
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        btnCreate.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-
-                try {
-
+            public void onClick(View view)
+            {
+                try
+                {
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
 
                     OkHttpClient client = new OkHttpClient();
 
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.7/CRUDAPI/create.php").newBuilder();
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.6/CRUDAPI/create.php").newBuilder();
                     urlBuilder.addQueryParameter("PName", txtPName.getText().toString());
                     urlBuilder.addQueryParameter("Price", txtPrice.getText().toString());
 
@@ -70,9 +72,8 @@ public class MainActivity extends AppCompatActivity {
                             .build();
 
 
-                    client.newCall(request).enqueue(new Callback() {
-
-
+                    client.newCall(request).enqueue(new Callback()
+                    {
                         @Override
                         public void onFailure(Call call, IOException e)
                         {
@@ -94,25 +95,25 @@ public class MainActivity extends AppCompatActivity {
                                     try
                                     {
                                         txtInfo.setText(response.body().string());
-
-                                    } catch (IOException e) {
-
+                                    }
+                                    catch (IOException e)
+                                    {
                                         e.printStackTrace();
                                     }
                                 }
                             });
-                        }
-
-                        ;
+                        };
                     });
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
             }
         });
 
-        btnRead.setOnClickListener(new View.OnClickListener() {
+        btnRead.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                     OkHttpClient client = new OkHttpClient();
 
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.7/CRUDAPI/read.php").newBuilder();
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.6/CRUDAPI/read.php").newBuilder();
                     urlBuilder.addQueryParameter("PID", txtPID.getText().toString());
 
                     String url = urlBuilder.build().toString();
@@ -137,22 +138,19 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call call, IOException e)
                         {
-
+                            // write some code here...
                         }
 
                         @Override
                         public void onResponse(Call call, final Response response) throws IOException
                         {
-
                             runOnUiThread(new Runnable()
                             {
                                 @Override
                                 public void run()
                                 {
-
                                     try
                                     {
-
                                         try
                                         {
                                             String data = response.body().string();
@@ -170,19 +168,14 @@ public class MainActivity extends AppCompatActivity {
                                         {
                                             txtInfo.setText(e.getMessage());
                                         }
-
-
                                     }
                                     catch (IOException e)
                                     {
                                         e.printStackTrace();
                                     }
-
                                 }
                             });
-                        }
-
-                        ;
+                        };
                     });
                 }
                 catch (Exception e)
@@ -204,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
                     OkHttpClient client = new OkHttpClient();
 
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.7/CRUDAPI/update.php").newBuilder();
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.6/CRUDAPI/update.php").newBuilder();
                     urlBuilder.addQueryParameter("PID", txtPID.getText().toString());
                     urlBuilder.addQueryParameter("PName", txtPName.getText().toString());
                     urlBuilder.addQueryParameter("Price", txtPrice.getText().toString());
@@ -220,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call call, IOException e)
                         {
-
+                            // Write some code here...
                         }
 
                         @Override
@@ -241,8 +234,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                        }
-                        ;
+                        };
                     });
                 }
                 catch (Exception e)
@@ -265,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
                     OkHttpClient client = new OkHttpClient();
 
-                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.7/CRUDAPI/delete.php").newBuilder();
+                    HttpUrl.Builder urlBuilder = HttpUrl.parse("http://192.168.1.6/CRUDAPI/delete.php").newBuilder();
                     urlBuilder.addQueryParameter("PID", txtPID.getText().toString());
 
                     String url = urlBuilder.build().toString();
@@ -279,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call call, IOException e)
                         {
-
+                            // Write some code here...
                         }
 
                         @Override
@@ -300,9 +292,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                        }
-
-                        ;
+                        };
                     });
                 }
                 catch (Exception e)
